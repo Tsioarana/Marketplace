@@ -1,0 +1,51 @@
+{% extends "myapp/base.html" %}
+{% block title %}Items{% endblock  %}
+
+{% block content %}
+  <div class="conatiner my-5">
+    <div class="row">
+      <div class="col-md-2 bg-light rounded">
+        <form action="{% url 'item:items' %}" method="get" class="">
+          <input class="form-control me-2 my-3" type="text" name="query" value="{{ query }}" placeholder="Search....">
+          <button class="btn btn-success">Search</button>
+        </form>
+        <hr>
+        <p>Categories</p> 
+        <ul class="navbar-nav">
+          {% for category in categories %}
+          <li class="nav-item {% if category.id == category_id %} bg-gray {% endif %}">
+            <a class="nav-link text-success" href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        <hr>
+        <p>Clear Filter</p>
+        <ul class="navbar-nav">
+          <li><a class="btn btn-warning" href="{% url 'item:items' %}">Clear</a></li>
+        </ul>
+      </div>
+      <div class="col-md-10">
+        <div class="container">
+          <div class="row">
+            {% for item in items %}
+            <div class="col-md-4">
+              <div class="card mb-3" style="border-radius: 10Px;">
+                <div class="text-center"> <!-- Ajout de la classe text-center ici -->
+                  <a href="{% url 'item:detail' item.id %}" style="color: white; text-decoration: none;">
+                    <img src="{{ item.image.url }}" width="200px" alt="{{ item.name }}">
+                    <div class="card-body bg-dark justify-content-end">
+                      <h5 class="card-title">{{ item.name }}</h5>
+                      <p class="card-text">Price: {{ item.price }}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock  %}

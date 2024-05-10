@@ -1,0 +1,27 @@
+{% extends "myapp/base.html" %}
+{% block title %}Conversation{% endblock  %}
+
+{% block content %}
+<div class="container rounded p-3 my-5">
+  
+    <a class="nav-link" href="">
+  <div class="row">
+    {% for message in conversation.messages.all %}
+    <div class="col-12 rounded {% if message.created_by == request.user %} bg-warning {% else %} bg-gray {% endif %}">
+      <p><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
+      <p>{{ message.content }}</p>
+    </div>
+    {% endfor %}
+  </div>
+ </a>
+  
+ 
+</div>
+
+<form action="." method="post">
+  {% csrf_token %}
+
+  {{ form.as_p }}
+  <button  class="btn btn-outline-warning">send</button>
+</form>
+{% endblock  %}

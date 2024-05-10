@@ -1,0 +1,64 @@
+{% extends "myapp/base.html" %}
+{% block title %}{{ item.name }}{% endblock  %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <div class="container p-3 my-5 text-center">
+          <img src="{{ item.image.url }}" width="350px" alt="{{ item.name }}">
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="container p-3 my-5 bg-light" style="height: 390px; border-radius: 10px">
+          <h1 class="mb-6">{{ item.name }}</h1>
+          <br>
+          <p class=""><strong>Price: </strong>{{ item.price }}</p>
+          <p class=""><strong>Seller: </strong>{{ item.created_by.username }}</p>
+          {% if item.description %}
+            <p class="">
+              <strong>Description: </strong><br>
+              {{ item.description }}
+
+            </p>
+          {% endif %}
+          {% if request.user == item.created_by %}
+            <div class="p-3 my-5 bg-white text-center" style="border-radius: 5px">
+              <p>This is your item!</p>
+              <a href="{% url 'item:edit' item.id %}" class="btn btn-success">Edit</a>
+              <a href="{% url 'item:delete' item.id %}" class="btn btn-danger">Delete</a>
+            </div>
+          {% else %}  
+            <a href="{% url 'conversation:new' item.id %}" class="btn btn-success">Contact seller</a>
+          {% endif %}
+          
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container p-3 my-5 bg-light rounded">
+    <h3 class="text-center">Related_item</h3>
+    <br>
+    <div class="container">
+      <div class="row">
+        {% for item in related_item %}
+        <div class="col-md-3">
+          <div class="card mb-3" style="border-radius: 10Px;">
+            <div class="text-center">
+              <img src="{{ item.image.url }}" width="150px" alt="{{ item.name }}">
+              <div class="card-body bg-light justify-content-end">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">Price: {{ item.price }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock  %}

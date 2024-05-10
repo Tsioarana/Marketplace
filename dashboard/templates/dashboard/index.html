@@ -1,0 +1,29 @@
+{% extends "myapp/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+  <div class="container p-5 my-5 bg-light rounded">
+    <h3 class="text-center">My Item</h3>
+    <br>
+    <div class="container">
+      <div class="row">
+        {% for item in items %}
+        <div class="col-md-3">
+          <div class="card mb-3" style="border-radius: 10Px;">
+            <div class="text-center"> <!-- Ajout de la classe text-center ici -->
+              <a href="{% url 'item:detail' item.id %}" style="color: white; text-decoration: none;">
+                <img src="{{ item.image.url }}" width="200px" alt="{{ item.name }}">
+                <div class="card-body bg-dark justify-content-end">
+                  <h5 class="card-title">{{ item.name }}</h5>
+                  <p class="card-text">Price: {{ item.price }}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <br>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}{{ title }}{% endblock  %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8  bg-light  p-5 ">
+      <h1 class="text-center text-success my-5">{{ title }}</h1>
+      <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-floating mb-3">
+          {{ form.as_p }}
+        </div>
+        {% if form.errors or form.non_field_errors %}
+        <div class="alert alert-danger">
+          {% for field in form %}
+            {{ field.errors }}
+          {% endfor %}
+          
+        {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+{% endblock  %}
