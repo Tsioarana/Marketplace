@@ -5,7 +5,8 @@ from .forms import LoginForm
 # from .views import CustomPasswordResetView
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('product/', views.index, name='index'),
+    path('', views.indexs, name='indexs'),
     path('contact/', views.contact, name='contact'),
     
     # Auth

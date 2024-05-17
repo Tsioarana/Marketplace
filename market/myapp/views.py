@@ -24,9 +24,11 @@ from .forms import CustomPasswordResetForm
 
 # Create your views here.
 def index(request):
+    return render(request, 'myapp/index.html')
+def indexs(request):
     items = Item.objects.filter(is_sold=False)[:6]
     categories = Category.objects.all()
-    return render(request, 'myapp/index.html', {
+    return render(request, 'myapp/indexs.html', {
         'categories': categories,
         'items': items,
     })
